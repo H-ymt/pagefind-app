@@ -1,52 +1,92 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import Link from "next/link";
+import Search from "@/components/Search";
+import PopularKeywords from "@/components/PopularKeywords";
+
+const articles = [
+  {
+    slug: "typescript-basics",
+    title: "TypeScriptの型システム入門",
+    description: "静的型付けでバグを未然に防ぐ方法を学びます",
+  },
+  {
+    slug: "react-hooks",
+    title: "React Hooksの完全ガイド",
+    description: "useState、useEffect、カスタムフックの使い方",
+  },
+  {
+    slug: "tailwind-css",
+    title: "Tailwind CSSでモダンなUIを構築",
+    description: "ユーティリティファーストのCSSフレームワーク",
+  },
+  {
+    slug: "cloudflare-workers",
+    title: "Cloudflare Workersでエッジコンピューティング",
+    description: "サーバーレスで低レイテンシーなアプリを構築",
+  },
+  {
+    slug: "git-workflow",
+    title: "Gitワークフローのベストプラクティス",
+    description: "チーム開発を効率化するブランチ戦略",
+  },
+  {
+    slug: "api-design",
+    title: "RESTful API設計の原則",
+    description: "使いやすく保守性の高いAPIを設計する",
+  },
+  {
+    slug: "testing-strategies",
+    title: "フロントエンドテスト戦略",
+    description: "ユニット、インテグレーション、E2Eテストの活用法",
+  },
+  {
+    slug: "performance-optimization",
+    title: "Webパフォーマンス最適化テクニック",
+    description: "Core Web Vitalsを改善するための手法",
+  },
+];
 
 export default function Home() {
-	return (
-		<div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-			<main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-				<Image className="dark:invert" src="/next.svg" alt="Next.js logo" width={180} height={38} priority />
-				<ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-					<li className="mb-2 tracking-[-.01em]">
-						Get started by editing{" "}
-						<code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-							src/app/page.tsx
-						</code>
-						.
-					</li>
-					<li className="tracking-[-.01em]">Save and see your changes instantly.</li>
-				</ol>
+  return (
+    <div className="font-sans min-h-screen p-8 pb-20 sm:p-20">
+      <main className="flex flex-col gap-8 items-center">
+        <h1 className="text-3xl font-bold text-gray-900">サイト内検索</h1>
 
-				<div className="flex gap-4 items-center flex-col sm:flex-row">
-					<a
-						className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-						href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Read our docs
-					</a>
-				</div>
-			</main>
-			<footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
-					Learn
-				</a>
-				<a
-					className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-					href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-					Go to nextjs.org →
-				</a>
-			</footer>
-		</div>
-	);
+        <Search />
+
+        <Suspense
+          fallback={
+            <div className="w-full max-w-2xl mx-auto mt-8 animate-pulse">
+              <div className="h-6 bg-gray-200 rounded w-48 mb-3"></div>
+              <div className="flex flex-wrap gap-2">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="h-8 bg-gray-200 rounded-full w-20"></div>
+                ))}
+              </div>
+            </div>
+          }
+        >
+          <PopularKeywords />
+        </Suspense>
+
+        <section className="w-full max-w-2xl mt-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">記事一覧</h2>
+          <div className="grid gap-4">
+            {articles.map((article) => (
+              <Link
+                key={article.slug}
+                href={`/articles/${article.slug}`}
+                className="block p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  {article.title}
+                </h3>
+                <p className="text-sm text-gray-600">{article.description}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
