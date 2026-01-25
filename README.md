@@ -6,7 +6,7 @@ OpenNext、Cloudflare、Pagefind、Drizzle ORM を使用した Next.js アプリ
 ## 技術スタック
 
 - **Framework**: [Next.js](https://nextjs.org) (App Router)
-- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com/) (via [OpenNext](https://opennext.js.org/cloudflare))
+- **Deployment**: [Cloudflare Workers](https://workers.cloudflare.com/) (via [OpenNext](https://opennext.js.org/cloudflare))
 - **Search**: [Pagefind](https://pagefind.app/) (Static Search)
 - **Database**: [Cloudflare D1](https://developers.cloudflare.com/d1/)
 - **ORM**: [Drizzle ORM](https://orm.drizzle.team/)
