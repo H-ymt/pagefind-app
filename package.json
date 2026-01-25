@@ -1,33 +1,44 @@
 {
-	"name": "pagefind-app",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-		"upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
-	},
-	"dependencies": {
-		"@opennextjs/cloudflare": "^1.15.1",
-		"next": "16.1.4",
-		"react": "19.1.4",
-		"react-dom": "19.1.4"
-	},
-	"devDependencies": {
-		"@eslint/eslintrc": "^3",
-		"@tailwindcss/postcss": "^4",
-		"@types/node": "^20",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"eslint": "^9",
-		"eslint-config-next": "15.4.6",
-		"tailwindcss": "^4",
-		"typescript": "^5.7.4",
-		"wrangler": "^4.60.0"
-	}
+  "name": "pagefind-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:search": "pnpm build && pnpm pagefind:local && pnpm dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "pagefind:local": "pagefind --site .next/server/app --output-path public/pagefind",
+    "pagefind:prod": "pagefind --site .next/server/app --output-path .open-next/assets/pagefind",
+    "cf:build": "opennextjs-cloudflare build && pnpm pagefind:prod",
+    "cf:preview": "pnpm cf:build && opennextjs-cloudflare preview",
+    "cf:deploy": "pnpm cf:build && opennextjs-cloudflare deploy",
+    "cf:upload": "pnpm cf:build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+  },
+  "dependencies": {
+    "@opennextjs/cloudflare": "^1.15.1",
+    "drizzle-orm": "^0.45.1",
+    "leo-profanity": "^1.9.0",
+    "naughty-words": "^1.2.0",
+    "next": "16.1.4",
+    "react": "19.1.4",
+    "react-dom": "19.1.4"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/leo-profanity": "^1.5.5",
+    "@types/naughty-words": "^1.2.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.8",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.6",
+    "pagefind": "^1.4.0",
+    "tailwindcss": "^4",
+    "typescript": "^5.7.4",
+    "wrangler": "^4.60.0"
+  }
 }

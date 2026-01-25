@@ -1,0 +1,6 @@
+{
+  "site": ".next/server/app",
+  "output_path": ".open-next/assets/pagefind",
+  "exclude_selectors": ["nav", "footer", ".search-form"],
+  "glob": "**/*.html"
+}
