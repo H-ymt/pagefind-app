@@ -52,7 +52,9 @@ export default function Home() {
       <main className="flex flex-col gap-8 items-center">
         <h1 className="text-3xl font-bold text-gray-900">サイト内検索</h1>
 
-        <Search />
+        <Suspense fallback={<div className="w-full max-w-2xl h-12" />}>
+          <Search />
+        </Suspense>
 
         <Suspense
           fallback={

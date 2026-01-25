@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 
 type PagefindResult = {
   id: string;
@@ -24,12 +25,15 @@ type Pagefind = {
 };
 
 export default function Search() {
-  const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+  const [query, setQuery] = useState(initialQuery);
   const [results, setResults] = useState<PagefindResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const pagefindRef = useRef<Pagefind | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initialSearchDone = useRef(false);
 
   useEffect(() => {
     const loadPagefind = async () => {
@@ -50,6 +54,27 @@ export default function Search() {
 
     loadPagefind();
   }, []);
+
+  // URLパラメータから初期検索を実行
+  useEffect(() => {
+    if (isReady && initialQuery && !initialSearchDone.current) {
+      initialSearchDone.current = true;
+      performSearch(initialQuery);
+      logSearch(initialQuery);
+    }
+  }, [isReady, initialQuery]);
+
+  // URLパラメータが変更された時にクエリを更新
+  useEffect(() => {
+    const urlQuery = searchParams.get("q") || "";
+    if (urlQuery !== query) {
+      setQuery(urlQuery);
+      if (isReady && urlQuery) {
+        performSearch(urlQuery);
+        logSearch(urlQuery);
+      }
+    }
+  }, [searchParams]);
 
   const logSearch = useCallback(async (searchQuery: string) => {
     if (!searchQuery.trim()) return;

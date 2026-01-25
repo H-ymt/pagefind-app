@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Keyword = {
   keyword: string;
@@ -10,6 +11,7 @@ type Keyword = {
 export default function PopularKeywordsClient() {
   const [keywords, setKeywords] = useState<Keyword[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchKeywords = async () => {
@@ -28,6 +30,10 @@ export default function PopularKeywordsClient() {
 
     fetchKeywords();
   }, []);
+
+  const handleKeywordClick = (keyword: string) => {
+    router.push(`/?q=${encodeURIComponent(keyword)}`);
+  };
 
   if (isLoading) {
     return (
@@ -53,14 +59,16 @@ export default function PopularKeywordsClient() {
       <h2 className="text-lg font-semibold text-gray-700  mb-3">人気の検索キーワード</h2>
       <div className="flex flex-wrap gap-2">
         {keywords.map(({ keyword, count }) => (
-          <span
+          <button
             key={keyword}
+            type="button"
+            onClick={() => handleKeywordClick(keyword)}
             className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100  text-gray-700  hover:bg-gray-200  transition-colors cursor-pointer"
             title={`${count}回検索`}
           >
             {keyword}
             <span className="ml-1 text-xs text-gray-500 ">({count})</span>
-          </span>
+          </button>
         ))}
       </div>
     </div>
