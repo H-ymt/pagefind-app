@@ -1,47 +1,65 @@
-# OpenNext Starter
+# Pagefind App
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+OpenNext、Cloudflare、Pagefind、Drizzle ORM を使用した Next.js アプリケーションです。
+静的検索エンジンの Pagefind を Cloudflare 環境で動作させるための構成が含まれています。
 
-## Getting Started
+## 技術スタック
 
-Read the documentation at https://opennext.js.org/cloudflare.
+- **Framework**: [Next.js](https://nextjs.org) (App Router)
+- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com/) (via [OpenNext](https://opennext.js.org/cloudflare))
+- **Search**: [Pagefind](https://pagefind.app/) (Static Search)
+- **Database**: [Cloudflare D1](https://developers.cloudflare.com/d1/)
+- **ORM**: [Drizzle ORM](https://orm.drizzle.team/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 
-## Develop
+## 開発の始め方
 
-Run the Next.js development server:
-
-```bash
-npm run dev
-# or similar package manager command
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-## Preview
-
-Preview the application locally on the Cloudflare runtime:
+依存関係をインストールします:
 
 ```bash
-npm run preview
-# or similar package manager command
+pnpm install
 ```
 
-## Deploy
+### 開発サーバーの起動
 
-Deploy the application to Cloudflare:
+通常の Next.js 開発サーバーを起動します:
 
 ```bash
-npm run deploy
-# or similar package manager command
+pnpm dev
 ```
 
-## Learn More
+### 検索機能を含む開発（推奨）
 
-To learn more about Next.js, take a look at the following resources:
+Pagefind は静的ファイルを解析してインデックスを作成するため、検索機能をローカルでテストするには一度ビルドする必要があります。  
+以下のコマンドは、ビルド → インデックス作成 → 開発サーバー起動 を一連の流れで行います:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm run dev:search
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## デプロイ
+
+Cloudflare Pages へのデプロイに関連するコマンドです。
+
+### プレビュー
+
+Cloudflare の `workerd` 環境でローカルプレビューを実行します:
+
+```bash
+pnpm run cf:preview
+```
+
+### 本番デプロイ
+
+アプリケーションをビルドし、Cloudflare Pages にデプロイします:
+
+```bash
+pnpm run cf:deploy
+```
+
+## ディレクトリ構造
+
+- `src/app`: Next.js App Router ソースコード
+- `src/db`: Drizzle ORM スキーマ定義
+- `public/pagefind`: ローカル開発用に生成された Pagefind のインデックス（`pnpm pagefind:local` 実行後）
+- `.open-next`: OpenNext ビルド成果物
