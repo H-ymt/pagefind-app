@@ -1,6 +1,6 @@
 # Pagefind App
 
-OpenNext、Cloudflare、Pagefind、Drizzle ORM を使用した Next.js アプリケーションです。
+OpenNext、Cloudflare、Pagefind、Drizzle ORM を使用した Next.js アプリケーションです。  
 静的検索エンジンの Pagefind を Cloudflare 環境で動作させるための構成が含まれています。
 
 ## 技術スタック
