@@ -34,6 +34,17 @@
 	],
 	"observability": {
 		"enabled": true
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "pagefind-keywords",
+			"database_id": "0e4f17df-7b57-4b39-bb2d-a4dbda9e45e7",
+			"migrations_dir": "drizzle"
+		}
+	],
+	"vars": {
+		"OPENAI_API_KEY": ""
 	}
 	/**
 	 * Smart Placement

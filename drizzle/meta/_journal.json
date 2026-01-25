@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1769348254936,
+      "tag": "0000_salty_rocket_raccoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1769352222534,
+      "tag": "0001_magical_winter_soldier",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1769352402414,
+      "tag": "0002_regular_bromley",
+      "breakpoints": true
+    }
+  ]
+}
